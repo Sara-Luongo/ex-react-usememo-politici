@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.section-card {
+    width: 100%;
+    text-align: center;
+    font-size: 0;
+    padding: 20px;
+}
+
+.card-container {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 16px;
+    text-align: left;
+
+    width: calc((100% - (20px * 2)) / 3);
+
+    height: 420px;
+    position: relative;
+    overflow: hidden;
+
+    background-color: rgba(0, 0, 255, 0.155);
+    border-radius: 5px;
+    padding: 15px;
+
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+/* Rimuove il margine destro solo alla terza card di ogni riga */
+.card-container:nth-child(3n) {
+    margin-right: 0;
+}

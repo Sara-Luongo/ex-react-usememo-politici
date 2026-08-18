@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
+import Card from './Card'
 import './App.css'
 
 
@@ -44,13 +45,22 @@ function App() {
   const API_URL = "http://localhost:3333/politicians";
 
   const [politicans, setPoliticans] = useState([]);
+  const [politicanSearch, setPoliticanSearch] = useState('');
+  const politicanFiltered = useMemo(() => {
+    return politicans.filter(p => {
+      if (p.name.toLowerCase().includes(politicanSearch.toLowerCase()) || p.biography.toLowerCase().includes(politicanSearch.toLowerCase())) {
+        return p
+      }
+    })
+  }, [politicans, politicanSearch]);
+
+
 
   const fetchPolitican = async () => {
     try {
       const res = await fetch(API_URL);
       const data = await res.json();
       setPoliticans(data);
-      console.log(politicans)
     } catch (error) {
       console.error('errore nel recupero dei dati')
     }
@@ -59,10 +69,23 @@ function App() {
   useEffect(() => {
     fetchPolitican()
   }, [])
-  console.log(politicans)
+
+
   return (
     <>
-      <h1>lista plitici</h1>
+      <section>
+        <div>
+          <label htmlFor="ricerca-politici"> cerca politico  </label>
+          <input onChange={(e) => { setPoliticanSearch(e.target.value) }} id='ricerca-politici' type="text" />
+          <p>{politicanSearch}</p>
+        </div>
+      </section>
+      {politicanFiltered.map((p) => (
+        <Card key={p.id} politican={p} />
+      ))}
+      <section className='section-card'>
+
+      </section>
     </>)
 }
 
