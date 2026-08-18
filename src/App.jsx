@@ -80,11 +80,10 @@ function App() {
           <p>{politicanSearch}</p>
         </div>
       </section>
-      {politicanFiltered.map((p) => (
-        <Card key={p.id} politican={p} />
-      ))}
       <section className='section-card'>
-
+        {politicanFiltered.map((p) => (
+          <Card key={p.id} politican={p} />
+        ))}
       </section>
     </>)
 }
